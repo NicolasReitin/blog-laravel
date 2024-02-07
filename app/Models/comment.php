@@ -10,10 +10,10 @@ class Comment extends Model
     use HasFactory;
 
     public function commentBy() { // association 1/N avec la table users
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function belongToArticle() { // association 1/N avec la table users
-        return $this->belongsTo(Article::class);
+        return $this->belongsTo(Article::class, 'article_id');
     }
 }

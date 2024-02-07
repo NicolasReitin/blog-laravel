@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('media');
+            $table->boolean('draft');
+            $table->boolean('is_approved');
             $table->timestamps();
             $table->foreignId(column: 'categorie_id')->nullable()->constrained(table: 'categories');
             $table->foreignId(column: 'user_id')->constrained(table: 'users')->onUpdate('cascade')->onDelete('cascade');
