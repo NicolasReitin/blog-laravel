@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
+
     public function index()
     {
-        //
+            $tags = Tag::all();
+    
+            return view('home', ['tags' => $tags]); //renvoi vers la page index avec tous les articles récupérés de la bdd dans la function $groupe
     }
     public function create()
     {

@@ -10,6 +10,7 @@ class Article extends Model
     use HasFactory;
 
     protected $guarded = [];
+    
 
     public function writedBy() { // association 1/N avec la table users
         // return $this->belongsTo(User::class, 'users', 'article_id', 'user_id');

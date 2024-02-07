@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,18 +37,28 @@ Route::middleware('auth')->group(function () {
 
 
 // ---------------------------------------Routes Articles -----------------------------------------
-Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-Route::get('/articles', [ArticleController::class, 'create'])->name('articles.create');
-Route::get('/articles', [ArticleController::class, 'store'])->name('articles.store');
-Route::get('/articles', [ArticleController::class, 'show'])->name('articles.show');
-Route::get('/articles', [ArticleController::class, 'edit'])->name('articles.edit');
-Route::get('/articles', [ArticleController::class, 'update'])->name('articles.update');
-Route::get('/articles', [ArticleController::class, 'destroy'])->name('articles.destroy');
-
-
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('/articles/show/{article}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/edit/{article}', [ArticleController::class, 'edit'])->name('articles.edit');
+Route::put('/articles/update/{article}', [ArticleController::class, 'update'])->name('articles.update');
+Route::delete('/articles/destroy/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 
 
 // ---------------------------------------Routes catégories -----------------------------------------
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::get('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+Route::get('/categories/show/{categorie}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/categories/edit/{categorie}', [CategoryController::class, 'edit'])->name('categories.edit');
+Route::get('/categories/update/{categorie}', [CategoryController::class, 'update'])->name('categories.update');
+Route::get('/categories/destroy/{categorie}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+
+// Route::resource('tags', TagController::class)
+//     ->only(['index', 'store', 'edit', 'update', 'destroy'])
+//     ->middleware(['auth', 'verified']);
 
 
 
