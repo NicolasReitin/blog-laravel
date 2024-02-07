@@ -12,7 +12,7 @@ class ArticleController extends Controller
         $articles = Article::orderBy('created_at', 'DESC')->get();
 
 
-        return view('articles', ['articles' => $articles]); //renvoi vers la page index avec tous les articles récupérés de la bdd dans la function $groupe
+        return view('article.articles', ['articles' => $articles]); //renvoi vers la page index avec tous les articles récupérés de la bdd dans la function $groupe
     }
     public function create()
     {
@@ -27,7 +27,7 @@ class ArticleController extends Controller
 
     public function show(article $article)
     {
-        //
+        return view('article.show', compact('article')); // renvoi vers la page show 
     }
 
     public function edit(article $article)

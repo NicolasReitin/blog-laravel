@@ -26,7 +26,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,22 +38,22 @@ Route::middleware('auth')->group(function () {
 
 // ---------------------------------------Routes Articles -----------------------------------------
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create')->middleware(['admin']);
+Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store')->middleware(['admin']);
 Route::get('/articles/show/{article}', [ArticleController::class, 'show'])->name('articles.show');
-Route::get('/articles/edit/{article}', [ArticleController::class, 'edit'])->name('articles.edit');
-Route::put('/articles/update/{article}', [ArticleController::class, 'update'])->name('articles.update');
-Route::delete('/articles/destroy/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+Route::get('/articles/edit/{article}', [ArticleController::class, 'edit'])->name('articles.edit')->middleware(['admin']);
+Route::put('/articles/update/{article}', [ArticleController::class, 'update'])->name('articles.update')->middleware(['admin']);
+Route::delete('/articles/destroy/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy')->middleware(['admin']);
 
 
 // ---------------------------------------Routes catégories -----------------------------------------
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-Route::get('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
-Route::get('/categories/show/{categorie}', [CategoryController::class, 'show'])->name('categories.show');
-Route::get('/categories/edit/{categorie}', [CategoryController::class, 'edit'])->name('categories.edit');
-Route::get('/categories/update/{categorie}', [CategoryController::class, 'update'])->name('categories.update');
-Route::get('/categories/destroy/{categorie}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+// Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+// Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+// Route::get('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+// Route::get('/categories/show/{categorie}', [CategoryController::class, 'show'])->name('categories.show');
+// Route::get('/categories/edit/{categorie}', [CategoryController::class, 'edit'])->name('categories.edit');
+// Route::get('/categories/update/{categorie}', [CategoryController::class, 'update'])->name('categories.update');
+// Route::get('/categories/destroy/{categorie}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 
 // Route::resource('tags', TagController::class)

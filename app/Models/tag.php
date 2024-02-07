@@ -11,5 +11,7 @@ class Tag extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    public function tagArticle() { // association N/N avec table article_tag
+        return $this->belongsToMany(Article::class, 'article_tag', 'tag_id', 'article_id');
+    }
 }
