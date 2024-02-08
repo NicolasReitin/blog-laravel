@@ -11,7 +11,7 @@
             <div class="mt-16 grid gap-x-8 gap-y-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
 
                 @foreach ($articles as $article)
-                    <a href="{{route('articles.show', ['article' => $article])}}">
+                    <a href="{{route('article.show', ['article' => $article])}}">
                         <div class="max-w-sm rounded overflow-hidden shadow-lg">
                             <img class="h-64 md:h-48 lg:h-40 rounded w-full" src={{ $article->media}} alt={{ $article->medias }}>
                             <p class="text-white mt-5 italic font-light">{{ ucfirst($article->writedBy->name) }}<span class="text-gray-600"> &nbsp;-&nbsp; {{ $article->created_at }}</span>
