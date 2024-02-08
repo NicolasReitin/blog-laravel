@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('media');
-            $table->boolean('draft');
+            $table->boolean('draft')->nullable();
             $table->boolean('is_approved');
             $table->timestamps();
             $table->foreignId(column: 'categorie_id')->nullable()->constrained(table: 'categories');
