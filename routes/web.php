@@ -5,6 +5,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 
@@ -54,6 +55,15 @@ Route::get('/article/edit/{article}', [ArticleController::class, 'edit'])->name(
 Route::put('/article/update/{article}', [ArticleController::class, 'update'])->name('article.update')->middleware(['admin']);
 Route::delete('/article/destroy/{article}', [ArticleController::class, 'destroy'])->name('article.destroy')->middleware(['admin']);
 
+// ---------------------------------------Routes Comment -----------------------------------------
+Route::get('/comments', [CommentController::class, 'index'])->name('comments');
+Route::get('/comment/create', [CommentController::class, 'create'])->name('comment.create')->middleware(['auth']);
+Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store')->middleware(['auth']);
+Route::get('/comment/show/{comment}', [CommentController::class, 'show'])->name('comment.show');
+Route::get('/comment/edit/{comment}', [CommentController::class, 'edit'])->name('comment.edit')->middleware(['auth']);
+Route::put('/comment/update/{comment}', [CommentController::class, 'update'])->name('comment.update')->middleware(['auth']);
+Route::delete('/comment/destroy/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy')->middleware(['auth']);
+
 
 // ---------------------------------------Routes catégories -----------------------------------------
 // Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
@@ -68,7 +78,6 @@ Route::delete('/article/destroy/{article}', [ArticleController::class, 'destroy'
 // Route::resource('tags', TagController::class)
 //     ->only(['index', 'store', 'edit', 'update', 'destroy'])
 //     ->middleware(['auth', 'verified']);
-
 
 
 require __DIR__.'/auth.php';

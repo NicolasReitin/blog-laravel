@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function commentBy() { // association 1/N avec la table users
         return $this->belongsTo(User::class, 'user_id');
     }

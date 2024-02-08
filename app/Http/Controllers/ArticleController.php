@@ -7,7 +7,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoregroupeRequest;
+use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
@@ -25,7 +25,7 @@ class ArticleController extends Controller
     }
 
     
-    public function store(StoregroupeRequest $request)
+    public function store(StoreArticleRequest $request)
     {
         $props = [];
         $props['title'] = $request->title;

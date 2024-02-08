@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoregroupeRequest extends FormRequest
+class StoreCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class StoregroupeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required|string|nullable',            
-            'content'=>'required|string|nullable',            
-            'media'=>'required|string|nullable'            
+            'comment'=>'required|string|nullable'      
         ];
     }
 }
