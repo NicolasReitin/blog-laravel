@@ -17,7 +17,6 @@ class ArticleController extends Controller
     {        
         $articles = Article::where('is_approved', 1)->orderBy('created_at', 'DESC')->get();
 
-
         return view('article.index', ['articles' => $articles]); //renvoi vers la page index avec tous les articles récupérés de la bdd dans la function $groupe
     }
 
@@ -61,6 +60,7 @@ class ArticleController extends Controller
         $props['content'] = $request->content;
         $props['media'] = $request->media;
         $props['user_id'] = Auth::user()->id;
+        $props['is_approved'] = 0;
         // dd($props);
         Article::create($props);
         return redirect('articles');

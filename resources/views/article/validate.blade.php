@@ -60,7 +60,7 @@
                                 <div class="text-sm text-white">{{ $article->created_at }}</div>
                             </td>
                             <td class="flex px-6 py-4 whitespace-nowrap">
-                                <form action="" method="POST">
+                                <form action="{{ route('article.destroy', $article) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button 
