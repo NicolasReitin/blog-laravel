@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateArticleRequest;
 
 class CommentController extends Controller
 {
@@ -29,12 +30,12 @@ class CommentController extends Controller
         $props['article_id'] = $request->article_id;
         $article = $request->article_id;
         // dd($article);
-
-        dd($props);
+        
         DB::beginTransaction();
         
         try{
             Comment::create($props);
+            // dd($props);
         }
         catch(Exception $ex){ // si le try ne fonctionne pas
             DB::rollBack(); //alors ça rollback
@@ -51,12 +52,24 @@ class CommentController extends Controller
 
     public function edit(comment $comment)
     {
-        //
+        return view('comment.edit', compact('comment'));
     }
 
-    public function update(comment $comment)
+    public function update(UpdateArticleRequest $request, comment $comment)
     {
-        //
+        $comment->content = $request->get('content');
+        $comment->updated_at = now();
+        
+        DB::beginTransaction();
+        try{
+            $comment->save();
+        }
+        catch(Exception $ex){ // si le try ne fonctionne pas
+            DB::rollBack(); //alors ça rollback
+            return redirect(route('article.show', $comment->article_id)); // et redirige ver la page users
+        }
+        DB::commit(); //enregistrement de l'opération
+        return redirect(route('article.show', $comment->article_id));  //renvoi vers la page index
     }
 
     public function destroy(comment $comment)

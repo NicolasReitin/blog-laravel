@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,39 @@ class ArticleController extends Controller
 {
     public function index()
     {        
-        $articles = Article::orderBy('created_at', 'DESC')->get();
+        $articles = Article::where('is_approved', 1)->orderBy('created_at', 'DESC')->get();
 
 
         return view('article.index', ['articles' => $articles]); //renvoi vers la page index avec tous les articles récupérés de la bdd dans la function $groupe
     }
+
+    public function validated()
+    {
+        $articlessNotValidates = Article::where('is_approved', 0)->get();
+        return view('article.validate', compact('articlessNotValidates'));
+    }
+
+    public function approved(article $article)
+    {
+        $article->is_approved = 1; 
+
+        DB::beginTransaction();
+        try{
+            // dd($article);
+            $article->save();
+        }
+        catch(Exception $ex){ // si le try ne fonctionne pas
+            DB::rollBack(); //alors ça rollback
+            return redirect(route('articles.validate')); // et redirige ver la page users
+        }
+        DB::commit(); //enregistrement de l'opération
+        return redirect(route('articles.validate'));  //renvoi vers la page index
+    }
+
+
+
+
+
     public function create()
     {
         //
@@ -39,7 +68,9 @@ class ArticleController extends Controller
 
     public function show(article $article)
     {
-        return view('article.show', compact('article')); // renvoi vers la page show 
+        $comments = Comment::orderBy('created_at', 'DESC')->get();
+
+        return view('article.show', compact('article', 'comments')); // renvoi vers la page show 
     }
 
     public function edit(article $article)
@@ -49,18 +80,19 @@ class ArticleController extends Controller
 
     public function update(UpdateArticleRequest $request, article $article)
     {
+        $article->title = $request->get('title');
+        $article->content = $request->get('content');
+        $article->media = $request->get('media');
+        $article->updated_at = now();
+
         DB::beginTransaction();
         try{
-            $article->title = $request->get('title');
-            $article->content = $request->get('content');
-            $article->media = $request->get('media');
-            $article->updated_at = now();
             // dd($article);
             $article->save();
         }
         catch(Exception $ex){ // si le try ne fonctionne pas
             DB::rollBack(); //alors ça rollback
-            return redirect('aricle.edit'); // et redirige ver la page users
+            return redirect('article.edit'); // et redirige ver la page users
         }
         DB::commit(); //enregistrement de l'opération
         return redirect('articles');  //renvoi vers la page index

@@ -9,7 +9,13 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    // protected $guarded = [];
+
+    protected $fillable = [
+        'content',
+        'user_id',
+        'article_id'
+    ];
 
     public function commentBy() { // association 1/N avec la table users
         return $this->belongsTo(User::class, 'user_id');

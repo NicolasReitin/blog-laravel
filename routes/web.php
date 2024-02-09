@@ -48,6 +48,8 @@ Route::delete('/user/destroy/{user}', [UserController::class, 'destroy'])->name(
 
 // ---------------------------------------Routes Articles -----------------------------------------
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
+Route::get('/articles/validate', [ArticleController::class, 'validated'])->name('articles.validate')->middleware(['admin']);
+Route::put('/article/approved/{article}', [ArticleController::class, 'approved'])->name('article.approved')->middleware(['admin']);
 Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create')->middleware(['admin']);
 Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store')->middleware(['admin']);
 Route::get('/article/show/{article}', [ArticleController::class, 'show'])->name('article.show');

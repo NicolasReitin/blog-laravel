@@ -19,16 +19,6 @@
             aria-haspopup="true"
             >
                 Créer un article
-            <svg 
-                class="-mr-1 h-5 w-5 text-gray-400" 
-                viewBox="0 0 20 20" 
-                fill="currentColor" 
-                aria-hidden="true"
-                >
-                <path 
-                    fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" 
-                />
-            </svg>
         </button>
     </div>
 
@@ -92,10 +82,10 @@
 {{-- ---------------------------------------- --}}
 
         <div class="flex justify-center">
-            <div class="mt-16 grid gap-x-8 gap-y-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+            <div class="mt-16 ml-10 mr-10 grid gap-x-8 gap-y-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
 
                 @foreach ($articles as $article)
-                        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="mt-5 p-2 max-w-sm rounded overflow-hidden shadow-lg">
                         <a href="{{route('article.show', $article)}}">
                             <img class="h-64 md:h-48 lg:h-40 rounded w-full" src={{ $article->media}} alt={{ $article->medias }}>
                             <p class="text-white mt-5 italic font-light">{{ ucfirst($article->writedBy->name) }}<span class="text-gray-600"> &nbsp;-&nbsp; {{ $article->created_at }}</span>
